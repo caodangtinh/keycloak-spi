@@ -1,1 +1,1 @@
-com.appsdeveloperblog.keycloak.RemoteUserStorageProviderFactory
+com.voc.spi.RemoteUserStorageProviderFactory
