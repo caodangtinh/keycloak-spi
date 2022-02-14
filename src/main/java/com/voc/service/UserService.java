@@ -14,12 +14,12 @@ public class UserService {
     public static final String VOC_API_WEB_USERS_SPI = "https://api.voc.dev/voc/api/web/users/spi/";
     public static final String KEYCLOAK_TOKEN_ENDPOINT = "https://keycloak.voc.dev/auth/realms/voc-backend/protocol/openid-connect/token";
 
-    public UserSPIResponse getUserDetails(String username) {
+    public UserSPIResponse getUserDetails(String email) {
         Unirest.setTimeouts(0, 0);
         JWTToken jwtToken = getJwtToken();
         HttpResponse<String> userSPIResponseStr;
         try {
-            userSPIResponseStr = Unirest.get(VOC_API_WEB_USERS_SPI + username)
+            userSPIResponseStr = Unirest.get(VOC_API_WEB_USERS_SPI + email)
                     .header("Authorization", "Bearer " + jwtToken.getAccess_token())
                     .asString();
             if (userSPIResponseStr.getStatus() != 200) {
@@ -51,12 +51,12 @@ public class UserService {
         }
     }
 
-    public VerifyPasswordResponse verifyUserPassword(String username, String inputPassword) {
+    public VerifyPasswordResponse verifyUserPassword(String email, String inputPassword) {
         Unirest.setTimeouts(0, 0);
         JWTToken jwtToken = getJwtToken();
         HttpResponse<String> userSPIResponseStr;
         try {
-            userSPIResponseStr = Unirest.get(VOC_API_WEB_USERS_SPI + username + "/" + inputPassword)
+            userSPIResponseStr = Unirest.get(VOC_API_WEB_USERS_SPI + email + "/" + inputPassword)
                     .header("Authorization", "Bearer " + jwtToken.getAccess_token())
                     .asString();
             if (userSPIResponseStr.getStatus() != 200) {
